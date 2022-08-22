@@ -20,7 +20,8 @@ public interface SnakeRepo extends JpaRepository<Snake, Long> {
         @Query(value="SELECT * FROM snake WHERE name LIKE BINARY '%:letter%'", nativeQuery = true)
         List<Snake> getNameByLetter(@Param("letter") String letter);*/
 
-      //query that can find lower case, and upper case letters in @TEST- nevim proc to v @TESTu dokaze vyhledat jak velka, tak mala pismena bez funkce BINARY
+      //query that can find lower case, and upper case letters in @TEST- nevim proc to v @TESTu dokaze rozlisit jak velka, tak mala pismena bez funkce BINARY
+      // a v Postmanu to uz nerozlisuje mezi velkymi a  malzmi pismeny
         @Query(value="SELECT * FROM snake WHERE name LIKE %:letter%", nativeQuery = true)
         List<Snake> getNameByLetterTEST(@Param("letter") String letter);
 

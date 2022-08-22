@@ -20,7 +20,8 @@ class SnakeRepoTest {
 
 
 /*otestovani funkce z repository s vlastni SQL query("SELECT * FROM snake WHERE name LIKE %:letter%")
-    * toto query funguje v tomto testu. Oproti standardu chybi obaleni %:letter% do jednoduchych uvozovek*/
+    * toto query funguje v tomto testu. Oproti standardu ale chybi obaleni %:letter% do jednoduchych uvozovek
+    * chova se jako kdyby  v query  byla funkce BINARY, i kdyz tam neni.*/
     @Test
     void canGetNameByLetterTEST() {
       /*  Arrange -  vytvoreni testovacich objektu snake, ulozeni do DB, vyloveni vsech snakes z DB,
