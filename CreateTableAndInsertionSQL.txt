@@ -1,0 +1,14 @@
+
+
+CREATE TABLE snakes (
+    id int NOT NULL AUTO_INCREMENT,
+    name varchar(255) NOT NULL,
+    pic varchar(255) NOT NULL,
+    PRIMARY KEY (id)
+);
+
+INSERT INTO snakes VALUES('Adder','vvv:<')
+INSERT INTO PhoneNumbers VALUES('Black Adder','vVv:<')
+INSERT INTO PhoneNumbers VALUES('Anaconda','VVVVVVV:<')
+
+
