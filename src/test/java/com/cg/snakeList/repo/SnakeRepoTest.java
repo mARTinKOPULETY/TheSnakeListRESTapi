@@ -28,9 +28,9 @@ class SnakeRepoTest {
          pro overeni.
          */
       String letter = "a";
-      Snake snake1 = new Snake(1L, "Black Adder", "VVVV:<");
-      Snake snake2 = new Snake(2L, "Mamba", "vvvvVVVV:<");
-      Snake snake3 = new Snake(3L, "Adder", "vvvv:<");
+      Snake snake1 = new Snake(1L, "Black Adder", "VVVV:<", 1l);
+      Snake snake2 = new Snake(2L, "Mamba", "vvvvVVVV:<",5L);
+      Snake snake3 = new Snake(3L, "Adder", "vvvv:<", 5L);
         testRepo.save(snake1);
         testRepo.save(snake2);
         testRepo.save(snake3);
@@ -61,9 +61,9 @@ class SnakeRepoTest {
          pro overeni.
          */
         String letter = "a";
-        Snake snake1 = new Snake(1L, "Black Adder", "VVVV:<");
-        Snake snake2 = new Snake(2L, "Mamba", "vvvvVVVV:<");
-        Snake snake3 = new Snake(3L, "Adder", "vvvv:<");
+        Snake snake1 = new Snake(1L, "Black Adder", "VVVV:<", 1L);
+        Snake snake2 = new Snake(2L, "Mamba", "vvvvVVVV:<", 2L );
+        Snake snake3 = new Snake(3L, "Adder", "vvvv:<",3L);
         testRepo.save(snake1);
         testRepo.save(snake2);
         testRepo.save(snake3);

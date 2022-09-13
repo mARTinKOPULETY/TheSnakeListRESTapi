@@ -12,12 +12,13 @@ import java.util.List;
 public class SnakeController {
 
     /*instance of snakeService*/
+    @Autowired
     private SnakeService snakeService;
 
     /* dependency injection*/
-    @Autowired
+    /*@Autowired
     public SnakeController(SnakeService snakeService){this.snakeService=snakeService;}
-
+*/
     /*returns list with all snakes*/
     @GetMapping
     public List<Snake> getAllSnakes(){
@@ -49,15 +50,20 @@ public class SnakeController {
 
     /*updates snake by id*/
     @PutMapping("{id}")
-    public void updateSnake(@PathVariable Long id,
+    public void updateSnake(
                             @RequestParam(required = false)String name,
-                            @RequestParam(required = false)String pic){
-        snakeService.update(id, name, pic);
+                            @RequestParam(required = false)String pic,
+                            @PathVariable Long id ){
+        snakeService.updateSnake(id, name, pic);
     }
 
     /*deletes snake by id*/
     @DeleteMapping("{id}")
-    public  void delete(@PathVariable  Long id ){
-        snakeService.deleteSnake(id);
+    public  void delete(@PathVariable  Long id, Snake snake ){
+        snakeService.deleteSnake(id, snake);
     }
+
+
+    @DeleteMapping("/deleteAllSnakes")
+    public void deleteAllSnakes() {snakeService.deleteAllSnakes();}
 }

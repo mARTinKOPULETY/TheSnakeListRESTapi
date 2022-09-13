@@ -1,6 +1,6 @@
 package com.cg.snakeList.repo;
 
-import com.cg.snakeList.entity.Snake;
+import com.cg.snakeList.entity.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,7 +13,7 @@ public interface SnakeRepo extends JpaRepository<Snake, Long> {
 
 
 //    query for finding list of snakes, which name contains concrete letter(s)
-    @Query(value="SELECT * FROM snake WHERE name LIKE BINARY CONCAT('%',:letter,'%')", nativeQuery = true)
+    @Query(value="SELECT * FROM snake WHERE snake_name LIKE BINARY CONCAT('%',:letter,'%')", nativeQuery = true)
     List<Snake> getNameByLetterPOSTMAN(@Param("letter") String letter);
 
     /*  //original query that works in  Workbench
@@ -22,7 +22,7 @@ public interface SnakeRepo extends JpaRepository<Snake, Long> {
 
       //query that can find lower case, and upper case letters in @TEST- nevim proc to v @TESTu dokaze rozlisit jak velka, tak mala pismena bez funkce BINARY
       // a v Postmanu to uz nerozlisuje mezi velkymi a  malzmi pismeny
-        @Query(value="SELECT * FROM snake WHERE name LIKE %:letter%", nativeQuery = true)
+        @Query(value="SELECT * FROM snake WHERE snake_name LIKE %:letter%", nativeQuery = true)
         List<Snake> getNameByLetterTEST(@Param("letter") String letter);
 
     /*query for finding list of snakes, which picture contains concrete letter(s)*/
@@ -30,4 +30,7 @@ public interface SnakeRepo extends JpaRepository<Snake, Long> {
     List<Snake> getPicByLetter(@Param("letter") String letter);
 
 
+    List<Snake> findBySnakeNameIs(String snakeName);
+    List<Snake> findBySnakePicIs(String snakePic);
+    List<User> findByUserUserIdIs(Long userId);
 }
