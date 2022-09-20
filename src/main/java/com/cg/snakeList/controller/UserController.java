@@ -2,20 +2,27 @@ package com.cg.snakeList.controller;
 
 import com.cg.snakeList.entity.*;
 import com.cg.snakeList.service.*;
+import org.slf4j.*;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.cache.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
+
+
 @RestController
 @RequestMapping(path="api/v1/user")
+@EnableCaching
 public class UserController {
 
-
+    Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private UserService userService;
 
 
+    @Cacheable()
     @GetMapping
     public List<User> getAllUsers(){return userService.getAllUsers();}
 
@@ -35,6 +42,7 @@ public class UserController {
         userService.updateUser(userConfirmPassword,id, userName,userPassword);
 
     }
+
     @GetMapping("/login")
     public void loginUser(@RequestParam(required = false)Long userId,
 
@@ -42,6 +50,7 @@ public class UserController {
                           @RequestParam(required = false)String userPassword,
                           User user)  {
         userService.loginUser(userId, userName,userPassword, user);
+
     }
     @GetMapping("/logout")
     public void logout() {

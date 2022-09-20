@@ -1,6 +1,7 @@
 package com.cg.snakeList.service;
 
 
+import com.cg.snakeList.*;
 import com.cg.snakeList.entity.*;
 import com.cg.snakeList.exceptions.IllegalInputException;
 import com.cg.snakeList.repo.SnakeRepo;
@@ -13,13 +14,11 @@ import static com.cg.snakeList.service.UserService.idFromUser;
 
 @Service
 public class SnakeService {
-
     private final SnakeRepo snakeRepo;
 
     public SnakeService(SnakeRepo snakeRepo) {
         this.snakeRepo = snakeRepo;
     }
-
 
     /*lists all snakes*/
     public List<Snake> getAllSnakes() {
@@ -34,10 +33,10 @@ public class SnakeService {
         int sizePicList = isThereSnakePic.size();
 
         snake.setUserId(idFromUser);
-
-        /*checks if there is  a name of a snake*/
-        if (snake.getUserId() == null) {
+        /*checks if  user is  logged*/
+      if (snake.getUserId() == null) {
             throw new IllegalInputException("You are not logged, you need log first!");
+//            checks if there is  a name of a snake
         } else if (snake.getSnakeName().isBlank()) {
             throw new IllegalInputException("Insert a NAME of a snake please!");
         } else if (sizeNameList != 0) {
@@ -57,10 +56,7 @@ public class SnakeService {
         }
     }
 
-
-    /*lists snake if snakes name contains concrete letter
-     * throw exception if there is no required snake
-     * */
+    /*lists snake if snakes name contains concrete letter*/
     public List<Snake> getNameByLetterTEST(String letter) {
         List<Snake> existLetter = snakeRepo.getNameByLetterTEST(letter);
         if (existLetter.isEmpty()) {
@@ -77,9 +73,7 @@ public class SnakeService {
         return snakeRepo.getNameByLetterPOSTMAN(letter);
     }
 
-    /*lists snake if snakes picture contains concrete letter
-     * throw exception if there is no required snake
-     * */
+    /*lists snake if snakes picture contains concrete letter*/
     public List<Snake> getNameByPic(String letter) {
         List<Snake> existsLetter = snakeRepo.getPicByLetter(letter);
         if (existsLetter.isEmpty()) {
@@ -88,10 +82,7 @@ public class SnakeService {
         return snakeRepo.getPicByLetter(letter);
     }
 
-
-/*
     /*updates snake by id*/
-
     @Transactional
     public void updateSnake(Long snakeId, String snakeName, String snakePic) {
         //checks if there is snake to update by id
@@ -124,7 +115,7 @@ public class SnakeService {
     }
 
 
-    /*deletes a snake by id*/
+
     public void deleteSnake(Long snakeId, Snake snake) {
         snakeRepo.findById(snakeId).orElseThrow(() -> new IllegalInputException("There is not a snake with id " + snakeId + "."));
         if(snake.getUserId() != idFromUser){

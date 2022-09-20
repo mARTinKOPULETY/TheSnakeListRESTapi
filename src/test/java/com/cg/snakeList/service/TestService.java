@@ -1,5 +1,6 @@
 package com.cg.snakeList.service;
 
+import com.cg.snakeList.controller.*;
 import com.cg.snakeList.entity.Snake;
 import com.cg.snakeList.exceptions.IllegalInputException;
 import com.cg.snakeList.repo.SnakeRepo;
@@ -9,6 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.*;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
@@ -25,13 +27,15 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class TestService {
-
+    Logger logger = LoggerFactory.getLogger(UserController.class);
     @Mock
     private SnakeRepo snakeRepoMock;
     @InjectMocks
     private SnakeService underTest;
     //given
     private Snake snake = new Snake(1L, "Adder", "vvv:<", 1L);
+
+
 
 
     @BeforeTest
@@ -45,9 +49,13 @@ public class TestService {
         when(snakeRepoMock.findById(snake.getSnakeId())).thenReturn(Optional.of(snake));
     }
 ////////////////////////CREATE\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-    @Test
+//TODO
+     @Test
     void canAddSnake() {
         //when
+
+        logger.error("Value of userId: "+ snake.getUserId()+ " IdFromUser:\n Snakes name: "+ snake.getSnakeName());
+
         underTest.addSnake(snake);
         //then
             /*ArgumentCaptor allows us to capture an argument passed to a method to inspect it.
@@ -58,7 +66,7 @@ public class TestService {
         verify(snakeRepoMock).save(snakeArgumentCaptor.capture());
         /*capturedSnake is what service method recieves -> snake obj*/
         Snake capturedSnake = snakeArgumentCaptor.getValue();
-        /*AssertionsForClassTypes.assertThat(org.assertj.core.api*/
+
         Assert.assertTrue(capturedSnake.equals(snake));
 
     }

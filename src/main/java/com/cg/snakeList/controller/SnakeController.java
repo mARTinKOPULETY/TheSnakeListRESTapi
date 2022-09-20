@@ -3,6 +3,7 @@ package com.cg.snakeList.controller;
 import com.cg.snakeList.entity.Snake;
 import com.cg.snakeList.service.SnakeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,16 +12,15 @@ import java.util.List;
 @RequestMapping(path = "api/v1/snake")
 public class SnakeController {
 
-    /*instance of snakeService*/
+
     @Autowired
     private SnakeService snakeService;
 
-    /* dependency injection*/
-    /*@Autowired
-    public SnakeController(SnakeService snakeService){this.snakeService=snakeService;}
-*/
+
+
     /*returns list with all snakes*/
     @GetMapping
+    @Cacheable(value = "Snake")
     public List<Snake> getAllSnakes(){
         return snakeService.getAllSnakes();
     }

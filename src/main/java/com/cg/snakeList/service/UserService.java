@@ -3,6 +3,7 @@ package com.cg.snakeList.service;
 import com.cg.snakeList.entity.*;
 import com.cg.snakeList.exceptions.*;
 import com.cg.snakeList.repo.*;
+import org.slf4j.*;
 import org.springframework.data.repository.query.*;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
@@ -11,11 +12,12 @@ import java.util.*;
 
 @Service
 public class UserService {
+    Logger logger = LoggerFactory.getLogger(UserService.class);
     private final UserRepo userRepo;
-    static Long idFromUser;
+    public static Long idFromUser;
     public UserService(UserRepo userRepo){this.userRepo=userRepo;}
 
-    public List<User> getAllUsers(){return  userRepo.findAll();}
+    public List<User> getAllUsers(){ return  userRepo.findAll();}
 
     public void addUser(@Param("userConfirmPassword")String userConfirmPassword, User user ){
         //show list if the user is in db, if  not its size is 0
@@ -80,10 +82,12 @@ public class UserService {
     public void deleteAllUsers(){ userRepo.deleteAll();}
 
     public void loginUser(Long userId, String userName, String userPassword, User user) {
+        logger.trace("User " + user.getUserName()+ " has  been logged succesfully.");
         //show list if the user is in db, if  not its size is 0
         List<User> isPresent = userRepo.findByUserNameIs(user.getUserName());
         int size = isPresent.size();
         if (size != 0) {
+
             //lists list of user to get its own atributes
             for (User userInDB : isPresent) {
                 if (userInDB.getUserName().equals(userName)) {
@@ -93,6 +97,7 @@ public class UserService {
                 }
             }
         } else throw new IllegalInputException("There is no \""+user.getUserName()+"\"user!");
+
     }
 
     public void logoutUser(){ idFromUser =null;} //It's not possible to make new snake if there is null
